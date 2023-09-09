@@ -1,0 +1,38 @@
+wordpressUsername: admin
+wordpressPassword: admin
+wordpressEmail: sajjad.hosseinzadeh@google.com
+wordpressFirstName: sajjad
+wordpressLastName: hz
+wordpressBlogName: sajjad-hosseinzadeh.com
+service: 
+  type: ClusterIP
+commonAnnotations: 
+  app: wordpress
+  created-by: "sajjad hosseinzadeh"
+ingress:
+  enabled: true
+  pathType: Prefix
+  apiVersion: ""
+  ingressClassName: "nginx"
+  hostname: sajjad.maxtld.dev
+  path: /wordpress(/|$)(.*)
+  annotations: 
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /wordpress/$2
+  tls: true
+  # selfSigned: true
+  # extraTls: 
+  # - hosts:
+  #     - sajjad.maxtld.dev
+  #   secretName: wp-cert
+  # secrets: 
+  #   - name: "wp-cert"
+volumePermissions:
+  enabled: true
+mariadb:
+  auth:
+    rootPassword: "admin"
+    database: wpdb
+    username: admin
+    password: "admin"
+    

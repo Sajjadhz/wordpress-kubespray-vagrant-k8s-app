@@ -1,0 +1,26 @@
+commonAnnotations: 
+  app: wordpress
+  created-by: "sajjad hosseinzadeh"
+ingress:
+  enabled: true
+  pathType: Prefix
+  apiVersion: ""
+  ingressClassName: "nginx"
+  hostname: sajjad.maxtld.dev
+  path: /dbadmin(/|$)(.*)
+  annotations: 
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-redirect-from: /
+    nginx.ingress.kubernetes.io/proxy-redirect-to: /dbadmin/
+  tls: true
+  # extraTls: 
+  # - hosts:
+  #     - sajjad.maxtld.dev
+  #   secretName: wp-cert
+  # secrets: 
+  #   - name: "wp-cert"
+  existingSecretName: "wp-cert"
+db:
+  host: "wordpress-mariadb"
+    
